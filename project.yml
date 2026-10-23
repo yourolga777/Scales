@@ -1,0 +1,53 @@
+name: Scales
+options:
+  bundleIdPrefix: com.scales
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+
+targets:
+  Scales:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Sources
+    info:
+      path: Config/Info.plist
+      properties:
+        CFBundleDisplayName: Scales
+        UILaunchScreen: {}
+        NSBluetoothAlwaysUsageDescription: Доступ к Bluetooth нужен для чтения данных с весов.
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+    settings:
+      base:
+        SWIFT_VERSION: "5.9"
+        TARGETED_DEVICE_FAMILY: "1"
+        PRODUCT_BUNDLE_IDENTIFIER: com.scales.app
+        INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription: Доступ к Bluetooth нужен для чтения данных с весов.
+
+  ScalesTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Tests
+    dependencies:
+      - target: Scales
+    settings:
+      base:
+        SWIFT_VERSION: "5.9"
+
+schemes:
+  Scales:
+    build:
+      targets:
+        Scales: all
+        ScalesTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - ScalesTests
